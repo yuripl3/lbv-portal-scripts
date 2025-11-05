@@ -12,7 +12,7 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [selectedCompany, setSelectedCompany] = useState("alfa");
+  const [selectedCompany, setSelectedCompany] = useState("vivo");
   const [selectedType, setSelectedType] = useState("Prospecção");
   const [selectedScript, setSelectedScript] = useState<string | null>(null);
 

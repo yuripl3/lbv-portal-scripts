@@ -53,7 +53,7 @@ export default function Scripts() {
               Gerencie os scripts da sua companhia
             </p>
           </div>
-          <Button className="gap-2">
+          <Button className="gap-2" onClick={() => navigate("/editor/new")}>
             <Plus className="h-4 w-4" />
             Novo Script
           </Button>
@@ -95,7 +95,7 @@ export default function Scripts() {
               <p className="text-sm text-muted-foreground text-center max-w-md mb-6">
                 Não há scripts para esta combinação de companhia e tipo. Crie o primeiro script para começar.
               </p>
-              <Button className="gap-2">
+              <Button className="gap-2" onClick={() => navigate("/editor/new")}>
                 <Plus className="h-4 w-4" />
                 Criar Primeiro Script
               </Button>

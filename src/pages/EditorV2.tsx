@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 
 interface Excerpt {
@@ -39,6 +40,7 @@ interface Excerpt {
   responseEnunciationType: string;
   statementComparisonMethod: string;
   responseComparisonMethod: string;
+  requiresResponse: boolean;
 }
 
 interface Step {
@@ -68,6 +70,7 @@ export default function EditorV2() {
         responseEnunciationType: e.enunciationType,
         statementComparisonMethod: e.comparisonMethod,
         responseComparisonMethod: e.comparisonMethod,
+        requiresResponse: true
       }))
     }))
   })));
@@ -116,6 +119,7 @@ export default function EditorV2() {
               responseEnunciationType: "ExplicitAnswer",
               statementComparisonMethod: "PartialMatch",
               responseComparisonMethod: "PartialMatch",
+              requiresResponse: true
             },
           ],
         },
@@ -146,6 +150,7 @@ export default function EditorV2() {
               responseEnunciationType: "ExplicitAnswer",
               statementComparisonMethod: "PartialMatch",
               responseComparisonMethod: "PartialMatch",
+              requiresResponse: true
             },
           ],
         };
@@ -175,6 +180,7 @@ export default function EditorV2() {
                 responseEnunciationType: "ExplicitAnswer",
                 statementComparisonMethod: "PartialMatch",
                 responseComparisonMethod: "PartialMatch",
+                requiresResponse: true
               };
               return {
                 ...step,
@@ -562,11 +568,23 @@ export default function EditorV2() {
 
                       {/* Donor Response */}
                       <div className="space-y-3 p-4 rounded-lg bg-green-50/50 dark:bg-green-950/20 border border-green-200/50 dark:border-green-800/50">
-                        <div className="flex items-center gap-2 mb-2">
-                          <MessageSquare className="h-4 w-4 text-green-600 dark:text-green-400" />
-                          <span className="text-sm font-medium text-green-900 dark:text-green-100">
-                            Resposta Esperada do Doador
-                          </span>
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <MessageSquare className="h-4 w-4 text-green-600 dark:text-green-400" />
+                            <span className="text-sm font-medium text-green-900 dark:text-green-100">
+                              Resposta Esperada do Doador
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Label htmlFor={`requires-response-${excerpt.id}`} className="text-xs text-muted-foreground cursor-pointer">
+                              Resposta esperada?
+                            </Label>
+                            <Switch
+                              id={`requires-response-${excerpt.id}`}
+                              checked={excerpt.requiresResponse}
+                              onCheckedChange={(checked) => updateExcerpt(selectedSection.id, selectedStep.id, excerpt.id, 'requiresResponse', checked)}
+                            />
+                          </div>
                         </div>
                         <div>
                           <Label className="text-xs">O que o doador deve responder</Label>
@@ -576,6 +594,7 @@ export default function EditorV2() {
                             className="mt-1 bg-white dark:bg-slate-950"
                             placeholder="Digite a resposta esperada do doador..."
                             rows={3}
+                            disabled={!excerpt.requiresResponse}
                           />
                         </div>
                         <div className="grid grid-cols-2 gap-3">
@@ -584,6 +603,7 @@ export default function EditorV2() {
                             <Select
                               value={excerpt.responseEnunciationType}
                               onValueChange={(value) => updateExcerpt(selectedSection.id, selectedStep.id, excerpt.id, "responseEnunciationType", value)}
+                              disabled={!excerpt.requiresResponse}
                             >
                               <SelectTrigger className="mt-1 bg-white dark:bg-slate-950">
                                 <SelectValue />
@@ -602,6 +622,7 @@ export default function EditorV2() {
                             <Select
                               value={excerpt.responseComparisonMethod}
                               onValueChange={(value) => updateExcerpt(selectedSection.id, selectedStep.id, excerpt.id, "responseComparisonMethod", value)}
+                              disabled={!excerpt.requiresResponse}
                             >
                               <SelectTrigger className="mt-1 bg-white dark:bg-slate-950">
                                 <SelectValue />

@@ -7,6 +7,7 @@ import { AppProvider } from "@/contexts/AppContext";
 import { Header } from "@/components/Header";
 import Scripts from "./pages/Scripts";
 import Editor from "./pages/Editor";
+import EditorV2 from "./pages/EditorV2";
 import Versions from "./pages/Versions";
 import Catalog from "./pages/Catalog";
 import NotFound from "./pages/NotFound";
@@ -24,11 +25,12 @@ const App = () => (
             <Header />
             <Routes>
               <Route path="/" element={<Navigate to="/scripts" replace />} />
-              <Route path="/scripts" element={<Scripts />} />
-              <Route path="/editor/:scriptId" element={<Editor />} />
-              <Route path="/versions/:scriptId" element={<Versions />} />
-              <Route path="/catalog" element={<Catalog />} />
-              <Route path="*" element={<NotFound />} />
+            <Route path="/scripts" element={<Scripts />} />
+            <Route path="/editor/:scriptId" element={<Editor />} />
+            <Route path="/editor-v2/:scriptId" element={<EditorV2 />} />
+            <Route path="/versions/:scriptId" element={<Versions />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </AppProvider>

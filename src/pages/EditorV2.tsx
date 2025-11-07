@@ -37,7 +37,8 @@ interface Excerpt {
   expectedResponse: string;
   statementEnunciationType: string;
   responseEnunciationType: string;
-  comparisonMethod: string;
+  statementComparisonMethod: string;
+  responseComparisonMethod: string;
 }
 
 interface Step {
@@ -65,6 +66,8 @@ export default function EditorV2() {
         ...e,
         statementEnunciationType: e.enunciationType,
         responseEnunciationType: e.enunciationType,
+        statementComparisonMethod: e.comparisonMethod,
+        responseComparisonMethod: e.comparisonMethod,
       }))
     }))
   })));
@@ -111,7 +114,8 @@ export default function EditorV2() {
               expectedResponse: "",
               statementEnunciationType: "ExplicitAnswer",
               responseEnunciationType: "ExplicitAnswer",
-              comparisonMethod: "PartialMatch",
+              statementComparisonMethod: "PartialMatch",
+              responseComparisonMethod: "PartialMatch",
             },
           ],
         },
@@ -140,7 +144,8 @@ export default function EditorV2() {
               expectedResponse: "",
               statementEnunciationType: "ExplicitAnswer",
               responseEnunciationType: "ExplicitAnswer",
-              comparisonMethod: "PartialMatch",
+              statementComparisonMethod: "PartialMatch",
+              responseComparisonMethod: "PartialMatch",
             },
           ],
         };
@@ -168,7 +173,8 @@ export default function EditorV2() {
                 expectedResponse: "",
                 statementEnunciationType: "ExplicitAnswer",
                 responseEnunciationType: "ExplicitAnswer",
-                comparisonMethod: "PartialMatch",
+                statementComparisonMethod: "PartialMatch",
+                responseComparisonMethod: "PartialMatch",
               };
               return {
                 ...step,
@@ -514,23 +520,43 @@ export default function EditorV2() {
                             rows={3}
                           />
                         </div>
-                        <div>
-                          <Label className="text-xs">Tipo de Enunciação</Label>
-                          <Select
-                            value={excerpt.statementEnunciationType}
-                            onValueChange={(value) => updateExcerpt(selectedSection.id, selectedStep.id, excerpt.id, "statementEnunciationType", value)}
-                          >
-                            <SelectTrigger className="mt-1 bg-white dark:bg-slate-950">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {enunciationTypes.map((type) => (
-                                <SelectItem key={type.value} value={type.value}>
-                                  {type.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <Label className="text-xs">Tipo de Enunciação</Label>
+                            <Select
+                              value={excerpt.statementEnunciationType}
+                              onValueChange={(value) => updateExcerpt(selectedSection.id, selectedStep.id, excerpt.id, "statementEnunciationType", value)}
+                            >
+                              <SelectTrigger className="mt-1 bg-white dark:bg-slate-950">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {enunciationTypes.map((type) => (
+                                  <SelectItem key={type.value} value={type.value}>
+                                    {type.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div>
+                            <Label className="text-xs">Método de Comparação</Label>
+                            <Select
+                              value={excerpt.statementComparisonMethod}
+                              onValueChange={(value) => updateExcerpt(selectedSection.id, selectedStep.id, excerpt.id, "statementComparisonMethod", value)}
+                            >
+                              <SelectTrigger className="mt-1 bg-white dark:bg-slate-950">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {comparisonMethods.map((method) => (
+                                  <SelectItem key={method.value} value={method.value}>
+                                    {method.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
                         </div>
                       </div>
 
@@ -552,46 +578,44 @@ export default function EditorV2() {
                             rows={3}
                           />
                         </div>
-                        <div>
-                          <Label className="text-xs">Tipo de Enunciação</Label>
-                          <Select
-                            value={excerpt.responseEnunciationType}
-                            onValueChange={(value) => updateExcerpt(selectedSection.id, selectedStep.id, excerpt.id, "responseEnunciationType", value)}
-                          >
-                            <SelectTrigger className="mt-1 bg-white dark:bg-slate-950">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {enunciationTypes.map((type) => (
-                                <SelectItem key={type.value} value={type.value}>
-                                  {type.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <Label className="text-xs">Tipo de Enunciação</Label>
+                            <Select
+                              value={excerpt.responseEnunciationType}
+                              onValueChange={(value) => updateExcerpt(selectedSection.id, selectedStep.id, excerpt.id, "responseEnunciationType", value)}
+                            >
+                              <SelectTrigger className="mt-1 bg-white dark:bg-slate-950">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {enunciationTypes.map((type) => (
+                                  <SelectItem key={type.value} value={type.value}>
+                                    {type.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div>
+                            <Label className="text-xs">Método de Comparação</Label>
+                            <Select
+                              value={excerpt.responseComparisonMethod}
+                              onValueChange={(value) => updateExcerpt(selectedSection.id, selectedStep.id, excerpt.id, "responseComparisonMethod", value)}
+                            >
+                              <SelectTrigger className="mt-1 bg-white dark:bg-slate-950">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {comparisonMethods.map((method) => (
+                                  <SelectItem key={method.value} value={method.value}>
+                                    {method.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
                         </div>
-                      </div>
-
-                      <Separator />
-
-                      {/* Comparison Method */}
-                      <div>
-                        <Label className="text-xs text-muted-foreground">Método de Comparação</Label>
-                        <Select
-                          value={excerpt.comparisonMethod}
-                          onValueChange={(value) => updateExcerpt(selectedSection.id, selectedStep.id, excerpt.id, "comparisonMethod", value)}
-                        >
-                          <SelectTrigger className="mt-1">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {comparisonMethods.map((method) => (
-                              <SelectItem key={method.value} value={method.value}>
-                                {method.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
                       </div>
                     </CardContent>
                   </Card>

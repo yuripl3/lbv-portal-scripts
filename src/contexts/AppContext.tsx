@@ -7,14 +7,18 @@ interface AppContextType {
   setSelectedType: (type: string) => void;
   selectedScript: string | null;
   setSelectedScript: (id: string | null) => void;
+  selectedVersion: string | null;
+  setSelectedVersion: (v: string | null) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [selectedCompany, setSelectedCompany] = useState("vivo");
-  const [selectedType, setSelectedType] = useState("Prospecção");
+  // Start with no filters selected (placeholders shown and list unfiltered)
+  const [selectedCompany, setSelectedCompany] = useState("");
+  const [selectedType, setSelectedType] = useState("");
   const [selectedScript, setSelectedScript] = useState<string | null>(null);
+  const [selectedVersion, setSelectedVersion] = useState<string | null>(null);
 
   return (
     <AppContext.Provider
@@ -25,6 +29,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setSelectedType,
         selectedScript,
         setSelectedScript,
+        selectedVersion,
+        setSelectedVersion,
       }}
     >
       {children}

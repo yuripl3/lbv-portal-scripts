@@ -8,8 +8,8 @@ import { Header } from "@/components/Header";
 import Scripts from "./pages/Scripts";
 import EditorV2 from "./pages/EditorV2";
 import Versions from "./pages/Versions";
-import Catalog from "./pages/Catalog";
 import NotFound from "./pages/NotFound";
+import Consolidado from "./pages/Consolidado";
 
 const queryClient = new QueryClient();
 
@@ -24,11 +24,11 @@ const App = () => (
             <Header />
             <Routes>
               <Route path="/" element={<Navigate to="/scripts" replace />} />
-            <Route path="/scripts" element={<Scripts />} />
-            <Route path="/editor/:scriptId" element={<EditorV2 />} />
-            <Route path="/versions/:scriptId" element={<Versions />} />
-            <Route path="/catalog" element={<Catalog />} />
-            <Route path="*" element={<NotFound />} />
+              <Route path="/scripts" element={<Scripts />} />
+              <Route path="/editor/:scriptId" element={<EditorV2 />} />
+              <Route path="/consolidado/:scriptId" element={<Consolidado />} />
+              <Route path="/versions/:scriptId" element={<Versions />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </AppProvider>

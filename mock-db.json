@@ -1,0 +1,58 @@
+{
+  "structures": {
+    "custom_1762977201450:v1.0": [
+      {
+        "id": "s1762977229560",
+        "name": "Nova Seção",
+        "excerpts": [
+          {
+            "id": "s1762977229560-e-1762977229560",
+            "label": "Trecho 1",
+            "expectedStatement": "teste",
+            "expectedResponse": "",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "Explicit",
+            "statementComparisonMethod": "ExactMatch",
+            "responseComparisonMethod": "ExactMatch",
+            "requiresResponse": true,
+            "operatorKeywords": [],
+            "donorKeywords": []
+          },
+          {
+            "id": "s1762977229560-e-1767626045966",
+            "label": "Trecho 2",
+            "expectedStatement": "",
+            "expectedResponse": "",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "Explicit",
+            "statementComparisonMethod": "ExactMatch",
+            "responseComparisonMethod": "ExactMatch",
+            "requiresResponse": true,
+            "operatorKeywords": [],
+            "donorKeywords": []
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": [
+    {
+      "id": "custom_1762977201450",
+      "companyId": "vivo",
+      "type": "Prospecção",
+      "name": "a",
+      "description": "a",
+      "activeVersion": "v1.0",
+      "status": "Ativo",
+      "lastModified": "2025-11-12T19:53:21.450Z",
+      "versions": [
+        {
+          "version": "v1.0",
+          "state": "Ativa",
+          "date": "2025-11-12T19:53:21.450Z",
+          "notes": "Criado no mock"
+        }
+      ]
+    }
+  ]
+}

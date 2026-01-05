@@ -105,7 +105,12 @@ All colors MUST be HSL.
     @apply bg-background text-foreground antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-semibold tracking-tight;
   }
 }
@@ -123,6 +128,22 @@ All colors MUST be HSL.
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  /* Brief attention effect to emphasize a newly created item */
+  .flash-highlight {
+    animation: flashHighlight 1.2s ease-out;
+  }
+  @keyframes flashHighlight {
+    0% {
+      background-color: hsl(var(--accent) / 0.35);
+    }
+    50% {
+      background-color: hsl(var(--accent) / 0.15);
+    }
+    100% {
+      background-color: transparent;
     }
   }
 }

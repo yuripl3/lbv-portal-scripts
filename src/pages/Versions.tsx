@@ -1,16 +1,60 @@
-import { useParams } from "react-router-dom";
-import { versions, scripts } from "@/data/mockData";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppContext } from "@/contexts/AppContext";
+import { scripts } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { GitCompare, Play, Copy, Plus } from "lucide-react";
+import { GitCompare, Play, Copy, Plus, FileEdit } from "lucide-react";
+import { getScript, type CustomScript } from "@/data/mockStore";
 
 export default function Versions() {
   const { scriptId } = useParams();
-  const script = scripts.find((s) => s.id === scriptId);
-  const activeVersion = versions.find((v) => v.state === "Ativa");
+  const navigate = useNavigate();
+  const { setSelectedScript, setSelectedVersion } = useAppContext();
+  const seedScript = scripts.find((s) => s.id === scriptId);
+  const [customScript, setCustomScript] = useState<CustomScript | null>(null);
+  const script = seedScript ?? customScript ?? null;
+  const versionsList = script?.versions ?? [];
+  const activeVersion = versionsList.find((v: any) => v.state === "Ativa");
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      if (!seedScript && scriptId) {
+        try {
+          const s = await getScript(scriptId);
+          if (!cancelled) setCustomScript(s);
+        } catch {}
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [seedScript, scriptId]);
+
+  // Ensure global selectedScript follows the route
+  useEffect(() => {
+    setSelectedScript(scriptId ?? null);
+  }, [scriptId, setSelectedScript]);
+
+  // Do not override selectedVersion here; it remains what Editor/Consolidado set.
+  // When user clicks a version card, we navigate with ?version and Editor will persist it.
 
   return (
     <div className="flex-1 p-6 fade-in">
@@ -20,7 +64,10 @@ export default function Versions() {
           <div>
             <h2 className="text-3xl font-semibold text-foreground">Versões</h2>
             <p className="text-sm text-muted-foreground mt-1">
-              Gerencie as versões do script {script?.name}
+              Gerencie as versões do script{" "}
+              {script
+                ? `${script.companyName ?? script.companyId} - ${script.type}`
+                : ""}
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -38,13 +85,23 @@ export default function Versions() {
 
         {/* Versions List */}
         <div className="space-y-4">
-          {versions.map((version) => (
-            <Card key={version.version} className={version.state === "Ativa" ? "border-accent" : ""}>
+          {versionsList.map((version) => (
+            <Card
+              key={version.version}
+              className={version.state === "Ativa" ? "border-accent" : ""}
+              onClick={() => {
+                // Open editor for this specific version
+                setSelectedScript(scriptId ?? null);
+                navigate(`/editor/${scriptId}?version=${version.version}`);
+              }}
+            >
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="flex items-center gap-3">
-                      <CardTitle className="text-xl">{version.version}</CardTitle>
+                      <CardTitle className="text-xl">
+                        {version.version}
+                      </CardTitle>
                       <Badge
                         variant={
                           version.state === "Ativa"
@@ -57,7 +114,9 @@ export default function Versions() {
                         {version.state}
                       </Badge>
                     </div>
-                    <CardDescription className="mt-2">{version.notes}</CardDescription>
+                    <CardDescription className="mt-2">
+                      {version.notes}
+                    </CardDescription>
                   </div>
                   <div className="text-sm text-muted-foreground">
                     {new Date(version.date).toLocaleDateString("pt-BR")}
@@ -84,23 +143,36 @@ export default function Versions() {
                         <div className="space-y-2 font-mono text-sm">
                           <div className="flex gap-2">
                             <span className="text-success">+</span>
-                            <span>Adicionado: "Seção de Fechamento" com 3 novos trechos</span>
+                            <span>
+                              Adicionado: "Seção de Fechamento" com 3 novos
+                              trechos
+                            </span>
                           </div>
                           <div className="flex gap-2">
                             <span className="text-destructive">-</span>
-                            <span>Removido: Trecho 2.3 "Confirmação de endereço"</span>
+                            <span>
+                              Removido: Trecho 2.3 "Confirmação de endereço"
+                            </span>
                           </div>
                           <div className="flex gap-2">
                             <span className="text-warning">~</span>
-                            <span>Alterado: Trecho 1.1 - Atualizado texto de consentimento LGPD</span>
+                            <span>
+                              Alterado: Trecho 1.1 - Atualizado texto de
+                              consentimento LGPD
+                            </span>
                           </div>
                           <div className="flex gap-2">
                             <span className="text-success">+</span>
-                            <span>Adicionado: Validação semântica em 5 trechos</span>
+                            <span>
+                              Adicionado: Validação semântica em 5 trechos
+                            </span>
                           </div>
                           <div className="flex gap-2">
                             <span className="text-warning">~</span>
-                            <span>Alterado: Método de comparação do Trecho 3.2 (ExactMatch → PartialMatch)</span>
+                            <span>
+                              Alterado: Método de comparação do Trecho 3.2
+                              (ExactMatch → PartialMatch)
+                            </span>
                           </div>
                         </div>
                       </ScrollArea>
@@ -113,7 +185,19 @@ export default function Versions() {
                       Ativar
                     </Button>
                   )}
-                  
+
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="gap-2"
+                    onClick={() =>
+                      navigate(`/editor/${scriptId}?version=${version.version}`)
+                    }
+                  >
+                    <FileEdit className="h-4 w-4" />
+                    Abrir no Editor
+                  </Button>
+
                   <Button variant="outline" size="sm" className="gap-2">
                     <Copy className="h-4 w-4" />
                     Duplicar

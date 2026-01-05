@@ -33,6 +33,226 @@
           }
         ]
       }
+    ],
+    "custom_vivo_prospeccao_demo:v1.0": [
+      {
+        "id": "s_demo_1",
+        "name": "1. Abertura e Consentimento",
+        "excerpts": [
+          {
+            "id": "s_demo_1_e1",
+            "label": "Trecho 1.1",
+            "expectedStatement": "A partir deste momento a nossa conversa poderá ser gravada.",
+            "expectedResponse": "Sim, autorizo.",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "ConfirmationAnswer",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "SemanticMatch",
+            "requiresResponse": true,
+            "operatorKeywords": ["gravação"],
+            "donorKeywords": ["autorizo", "sim"]
+          }
+        ]
+      },
+      {
+        "id": "s_demo_2",
+        "name": "2. Identificação e Contato",
+        "excerpts": [
+          {
+            "id": "s_demo_2_e1",
+            "label": "Trecho 2.1",
+            "expectedStatement": "Meu nome é [Nome do Operador] e sou da Legião da Boa Vontade (LBV).",
+            "expectedResponse": "",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "Explicit",
+            "statementComparisonMethod": "PartialMatch",
+            "responseComparisonMethod": "PartialMatch",
+            "requiresResponse": false,
+            "operatorKeywords": ["lbv", "legião", "boa vontade"],
+            "donorKeywords": []
+          },
+          {
+            "id": "s_demo_2_e2",
+            "label": "Trecho 2.2",
+            "expectedStatement": "Nosso telefone para contato é o 0800 055 50 99.",
+            "expectedResponse": "",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "Explicit",
+            "statementComparisonMethod": "ExactMatch",
+            "responseComparisonMethod": "ExactMatch",
+            "requiresResponse": false,
+            "operatorKeywords": ["0800 055 50 99"],
+            "donorKeywords": []
+          }
+        ]
+      },
+      {
+        "id": "s_demo_3",
+        "name": "3. Confirmações de Dados",
+        "excerpts": [
+          {
+            "id": "s_demo_3_e1",
+            "label": "Trecho 3.1",
+            "expectedStatement": "O seu nome completo é? (O operador não deverá dizer nem o 1º nome do doador.)",
+            "expectedResponse": "[Nome do Doador]",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "Explicit",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "PartialMatch",
+            "requiresResponse": true,
+            "operatorKeywords": ["nome completo"],
+            "donorKeywords": []
+          },
+          {
+            "id": "s_demo_3_e2",
+            "label": "Trecho 3.2",
+            "expectedStatement": "Sua data de nascimento é [Data de Nascimento]?",
+            "expectedResponse": "Confirmo a data de nascimento.",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "ConfirmationAnswer",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "SemanticMatch",
+            "requiresResponse": true,
+            "operatorKeywords": ["data de nascimento"],
+            "donorKeywords": ["confirmo", "sim"]
+          },
+          {
+            "id": "s_demo_3_e3",
+            "label": "Trecho 3.3",
+            "expectedStatement": "Qual o número do seu CPF?",
+            "expectedResponse": "[Documento]",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "Explicit",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "PartialMatch",
+            "requiresResponse": true,
+            "operatorKeywords": ["cpf"],
+            "donorKeywords": []
+          },
+          {
+            "id": "s_demo_3_e4",
+            "label": "Trecho 3.4",
+            "expectedStatement": "Qual o número do seu telefone para efetuar a doação? (com DDD)",
+            "expectedResponse": "[Telefone (com DDD)]",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "Explicit",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "PartialMatch",
+            "requiresResponse": true,
+            "operatorKeywords": ["telefone", "ddd"],
+            "donorKeywords": []
+          }
+        ]
+      },
+      {
+        "id": "s_demo_4",
+        "name": "4. Validação da Linha",
+        "excerpts": [
+          {
+            "id": "s_demo_4_e1",
+            "label": "Trecho 4.1",
+            "expectedStatement": "O seu celular é da operadora Vivo?",
+            "expectedResponse": "Sim, é Vivo.",
+            "statementEnunciationType": "ConfirmationAnswer",
+            "responseEnunciationType": "ConfirmationAnswer",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "SemanticMatch",
+            "requiresResponse": true,
+            "operatorKeywords": ["vivo"],
+            "donorKeywords": ["vivo", "sim"]
+          },
+          {
+            "id": "s_demo_4_e2",
+            "label": "Trecho 4.2",
+            "expectedStatement": "Sua conta é pós-paga?",
+            "expectedResponse": "Sim, é pós-paga.",
+            "statementEnunciationType": "ConfirmationAnswer",
+            "responseEnunciationType": "ConfirmationAnswer",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "SemanticMatch",
+            "requiresResponse": true,
+            "operatorKeywords": ["pós-paga"],
+            "donorKeywords": ["pós", "fatura", "sim"]
+          },
+          {
+            "id": "s_demo_4_e3",
+            "label": "Trecho 4.3",
+            "expectedStatement": "O(A) Sr(a) é o titular da conta? (Se não for, é o(a) esposo(a) do(a) titular?)",
+            "expectedResponse": "Confirmo.",
+            "statementEnunciationType": "ConfirmationAnswer",
+            "responseEnunciationType": "ConfirmationAnswer",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "SemanticMatch",
+            "requiresResponse": true,
+            "operatorKeywords": ["titular"],
+            "donorKeywords": ["confirmo", "sim"]
+          }
+        ]
+      },
+      {
+        "id": "s_demo_5",
+        "name": "5. Doação, Leitura e Autorização",
+        "excerpts": [
+          {
+            "id": "s_demo_5_e1",
+            "label": "Trecho 5.1",
+            "expectedStatement": "O valor da sua doação será de R$ [Valor da Doação].",
+            "expectedResponse": "Confirmo o valor.",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "ConfirmationAnswer",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "SemanticMatch",
+            "requiresResponse": true,
+            "operatorKeywords": ["doação", "valor"],
+            "donorKeywords": ["confirmo", "sim"]
+          },
+          {
+            "id": "s_demo_5_e2",
+            "label": "Trecho 5.2",
+            "expectedStatement": "Sr(a) [Nome do Doador], os dados confirmados hoje serão encaminhados para a Vivo, para debitar em sua próxima conta de telefone o valor de R$ [Valor da Doação] para a LBV.",
+            "expectedResponse": "Confirmo.",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "ConfirmationAnswer",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "SemanticMatch",
+            "requiresResponse": true,
+            "operatorKeywords": ["debitar", "próxima conta", "vivo"],
+            "donorKeywords": ["confirmo", "sim"]
+          },
+          {
+            "id": "s_demo_5_e3",
+            "label": "Trecho 5.3",
+            "expectedStatement": "O(A) senhor(a) autoriza?",
+            "expectedResponse": "Sim, autorizo.",
+            "statementEnunciationType": "ConfirmationAnswer",
+            "responseEnunciationType": "ConfirmationAnswer",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "SemanticMatch",
+            "requiresResponse": true,
+            "operatorKeywords": ["autoriza"],
+            "donorKeywords": ["autorizo", "sim"]
+          }
+        ]
+      },
+      {
+        "id": "s_demo_6",
+        "name": "6. Encerramento",
+        "excerpts": [
+          {
+            "id": "s_demo_6_e1",
+            "label": "Trecho 6.1",
+            "expectedStatement": "Parabéns, a sua doação foi feita com sucesso!",
+            "expectedResponse": "",
+            "statementEnunciationType": "Explicit",
+            "responseEnunciationType": "Explicit",
+            "statementComparisonMethod": "SemanticMatch",
+            "responseComparisonMethod": "SemanticMatch",
+            "requiresResponse": false,
+            "operatorKeywords": ["sucesso"],
+            "donorKeywords": []
+          }
+        ]
+      }
     ]
   },
   "scripts": [
@@ -51,6 +271,24 @@
           "state": "Ativa",
           "date": "2025-11-12T19:53:21.450Z",
           "notes": "Criado no mock"
+        }
+      ]
+    },
+    {
+      "id": "custom_vivo_prospeccao_demo",
+      "companyId": "vivo",
+      "companyName": "Vivo",
+      "type": "Prospecção",
+      "description": "Vivo Prospecção (script legado) — demo",
+      "activeVersion": "v1.0",
+      "status": "Ativo",
+      "lastModified": "2026-01-05T12:00:00.000Z",
+      "versions": [
+        {
+          "version": "v1.0",
+          "state": "Ativa",
+          "date": "2026-01-05T12:00:00.000Z",
+          "notes": "Importado do script legado (planilha) para demonstração"
         }
       ]
     }
